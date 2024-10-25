@@ -1,0 +1,27 @@
+name: Publish Python Package
+
+description: "Build and publish a Python package to TestPyPI"
+
+inputs:
+  repository-url:
+    description: "The URL of the TestPyPI repository"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install pypa/build
+      shell: bash
+      run: |
+        python -m pip install build --user
+
+    - name: Build a binary wheel and a source tarball
+      shell: bash
+      run: |
+        python -m build --sdist --wheel --outdir dist/ .
+
+    - name: Publish package distributions to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: ${{ inputs.repository-url }}
+        verbose: true
