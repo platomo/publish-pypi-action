@@ -1,21 +1,21 @@
 
 # Publish Python Package
 
-Diese GitHub-Action erstellt und veröffentlicht ein Python-Paket auf TestPyPI.
+This GitHub Action builds and publishes a Python package to TestPyPI.
 
-## Beschreibung
+## Description
 
-Diese Action ist nützlich, wenn Sie Python-Pakete auf TestPyPI bereitstellen möchten, um sie vor der Veröffentlichung auf dem offiziellen PyPI-Repository zu testen. Sie baut das Paket, erstellt sowohl eine Binär-Rad- als auch eine Quell-Tarball-Datei und veröffentlicht diese auf der angegebenen TestPyPI-Instanz.
+This Action is useful for deploying Python packages to TestPyPI to test them before releasing on the official PyPI repository. It builds the package, creating both a binary wheel and a source tarball, and publishes them to the specified TestPyPI instance.
 
-## Eingaben
+## Inputs
 
-| Name            | Beschreibung                          | Erforderlich | Standardwert |
-|-----------------|--------------------------------------|--------------|--------------|
-| `repository-url` | Die URL des TestPyPI-Repositories.   | Ja           | Keine        |
+| Name             | Description                          | Required | Default      |
+|------------------|--------------------------------------|----------|--------------|
+| `repository-url` | The URL of the TestPyPI repository   | Yes      | None         |
 
-## Verwendung
+## Usage
 
-Erstellen Sie eine Workflow-Datei (z. B. `.github/workflows/publish.yml`) und verwenden Sie diese Action wie folgt:
+Create a workflow file (e.g., `.github/workflows/publish.yml`) and use this Action as follows:
 
 ```yaml
 name: Publish to TestPyPI
@@ -39,12 +39,12 @@ jobs:
           repository-url: https://test.pypi.org/legacy/
 ```
 
-## Schritte im Workflow
+## Workflow Steps
 
-1. **Installiere pypa/build**: Installiert das `build`-Paket, das für den Bau des Python-Pakets benötigt wird.
-2. **Baue ein Rad und eine Quell-Tarball**: Baut das Paket und erstellt eine `.whl`- und eine `.tar.gz`-Datei im `dist/`-Ordner.
-3. **Veröffentliche Paket auf TestPyPI**: Nutzt die [gh-action-pypi-publish](https://github.com/pypa/gh-action-pypi-publish), um die Paketdateien auf das angegebene TestPyPI-Repository hochzuladen.
+1. **Install pypa/build**: Installs the `build` package, required for building the Python package.
+2. **Build Wheel and Source Tarball**: Builds the package and creates both `.whl` and `.tar.gz` files in the `dist/` folder.
+3. **Publish Package to TestPyPI**: Uses [gh-action-pypi-publish](https://github.com/pypa/gh-action-pypi-publish) to upload the package files to the specified TestPyPI repository.
 
-## Erforderliche Berechtigungen
+## Required Permissions
 
-Um die Action erfolgreich auszuführen, muss ein Authentifizierungstoken in den Repository-Geheimnissen (`secrets`) gespeichert werden, um das Paket auf TestPyPI zu veröffentlichen.
+To successfully run the Action, an authentication token must be stored in the repository secrets (`secrets`) to publish the package to TestPyPI.
