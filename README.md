@@ -1,4 +1,3 @@
-
 # Publish Python Package
 
 This GitHub Action builds and publishes a Python package to TestPyPI.
@@ -9,9 +8,9 @@ This Action is useful for deploying Python packages to TestPyPI to test them bef
 
 ## Inputs
 
-| Name             | Description                          | Required | Default      |
-|------------------|--------------------------------------|----------|--------------|
-| `repository-url` | The URL of the TestPyPI repository   | Yes      | None         |
+| Name             | Description                        | Required | Default |
+| ---------------- | ---------------------------------- | -------- | ------- |
+| `repository-url` | The URL of the TestPyPI repository | Yes      | None    |
 
 ## Usage
 
