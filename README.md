@@ -30,8 +30,8 @@ The environment variable `PYPI_REPO_URL` needs to be defined
 See [this link](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/)
 for more information.
 
-Use this action by creating a workflow file, for example:
-`.github/workflows/release-testpypi.yml`):
+Use this action by creating a workflow file, for example 
+`.github/workflows/release-testpypi.yml`:
 
 ```yaml
 name: Publish to TestPyPI
@@ -40,6 +40,8 @@ on:
   push:
     branches:
       - main
+
+permissions: read-all
 
 jobs:
   test:
@@ -54,7 +56,7 @@ jobs:
       - regression-test
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/<package-name>
+      url: https://test.pypi.org/p/<my_package>
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
@@ -64,10 +66,59 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Update Python Package Version
+        uses: platomo/update-version-py-action@v1
+        with:
+          version: nightly
+          file-path: "<my_package>"
       - name: Publish Python Package
         uses: platomo/publish-pypi-action@v1
+```
+
+or `.github/workflows/release-pypi.yml`:
+
+```yaml
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions: read-all
+
+jobs:
+  test:
+    if: endsWith(github.event.base_ref, 'main')
+    uses: './.github/workflows/test.yml'
+  regression-test:
+    if: endsWith(github.event.base_ref, 'main')
+    uses: './.github/workflows/regression-test.yml'
+    secrets: inherit
+  publish-to-pypi:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+      - regression-test
+    environment:
+      name: pypi
+      url: https://pypi.org/p/<my_package>
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          out_dir: /dist
+          python-version: "3.11"
+      - name: Update Python Package Version
+        uses: platomo/update-version-py-action@v1
+        with:
+          version: ${{ github.ref_name }}
+          file-path: "<my_package>"
+      - name: Publish Python Package
+        uses: platomo/publish-pypi-action@v1
 ```
 
 ## 🆕 Create a new release
