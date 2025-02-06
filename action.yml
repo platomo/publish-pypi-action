@@ -1,11 +1,13 @@
+---
 name: Publish Python Package
 
-description: "Build and publish a Python package to TestPyPI"
+description: Build and publish a Python package to a Python package repository.
 
 inputs:
-  repository-url:
-    description: "The URL of the TestPyPI repository"
-    required: true
+  out_dir:
+    description: "Directory where builds are saved to."
+    required: false
+    default: "dist/"
 
 runs:
   using: "composite"
@@ -13,15 +15,20 @@ runs:
     - name: Install pypa/build
       shell: bash
       run: |
-        python -m pip install build --user
+        python3 -m pip install build --user
 
     - name: Build a binary wheel and a source tarball
       shell: bash
-      run: |
-        python -m build --sdist --wheel --outdir dist/ .
+      run: python -m build --sdist --wheel --outdir ${{ inputs.out_dir }}
 
-    - name: Publish package distributions to TestPyPI
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+
+    - name: Publish distribution
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        repository-url: ${{ inputs.repository-url }}
+        repository-url: ${{ env.PYPI_REPO_URL }}
         verbose: true
