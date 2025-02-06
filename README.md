@@ -8,7 +8,7 @@ and publishes them to the specified PyPi instance.
 
 It needs a GitHub environment and a variable `PYPI_REPO_URL` defined.
 
-## Inputs
+## ⚙️ Inputs
 
 | Name      | Description                          | Required | Default |
 |-----------|--------------------------------------|:--------:|:-------:|
