@@ -14,7 +14,7 @@ It needs a GitHub environment and a variable `PYPI_REPO_URL` defined.
 |-----------|--------------------------------------|:--------:|:-------:|
 | `out_dir` | Directory where builds are saved to. |    No    | `dist/` |
 
-## Usage
+## 📦 Usage Example
 
 The repository needs a `pyproject.toml`.
 
