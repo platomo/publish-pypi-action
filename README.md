@@ -34,6 +34,7 @@ Use this action by creating a workflow file, for example
 `.github/workflows/release-testpypi.yml`:
 
 ```yaml
+---
 name: Publish to TestPyPI
 
 on:
@@ -78,6 +79,7 @@ jobs:
 or `.github/workflows/release-pypi.yml`:
 
 ```yaml
+---
 name: Publish to PyPI
 
 on:
