@@ -11,7 +11,7 @@ It needs a GitHub environment and a variable `PYPI_REPO_URL` defined.
 ## ⚙️ Inputs
 
 | Name      | Description                          | Required | Default |
-|-----------|--------------------------------------|:--------:|:-------:|
+| --------- | ------------------------------------ | :------: | :-----: |
 | `out_dir` | Directory where builds are saved to. |    No    | `dist/` |
 
 ## 📦 Usage Example
@@ -30,7 +30,7 @@ The environment variable `PYPI_REPO_URL` needs to be defined
 See [this link](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/)
 for more information.
 
-Use this action by creating a workflow file, for example 
+Use this action by creating a workflow file, for example
 `.github/workflows/release-testpypi.yml`:
 
 ```yaml
@@ -46,9 +46,9 @@ permissions: read-all
 
 jobs:
   test:
-    uses: './.github/workflows/test.yml'
+    uses: "./.github/workflows/test.yml"
   regression-test:
-    uses: './.github/workflows/regression-test.yml'
+    uses: "./.github/workflows/regression-test.yml"
     secrets: inherit
   publish-to-testpypi:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
       name: testpypi
       url: https://test.pypi.org/p/<my_package>
     permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      id-token: write # IMPORTANT: mandatory for trusted publishing
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -92,10 +92,10 @@ permissions: read-all
 jobs:
   test:
     if: endsWith(github.event.base_ref, 'main')
-    uses: './.github/workflows/test.yml'
+    uses: "./.github/workflows/test.yml"
   regression-test:
     if: endsWith(github.event.base_ref, 'main')
-    uses: './.github/workflows/regression-test.yml'
+    uses: "./.github/workflows/regression-test.yml"
     secrets: inherit
   publish-to-pypi:
     runs-on: ubuntu-latest
@@ -106,7 +106,7 @@ jobs:
       name: pypi
       url: https://pypi.org/p/<my_package>
     permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      id-token: write # IMPORTANT: mandatory for trusted publishing
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
